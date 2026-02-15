@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>गाँव का लोन कैलकुलेटर | No Ads</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Teko:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Mukta', sans-serif; background-color: #ffffff; color: #334155; }
+        .teko { font-family: 'Teko', sans-serif; }
+        .input-card { border: 1px solid #e2e8f0; border-top: 6px solid #15803d; border-radius: 12px; }
+        .result-dashed-card { border: 2px dashed #fcd34d; background-color: #fffdf5; border-radius: 12px; }
+        .ad-slot { text-align: center; margin: 15px 0; min-height: 50px; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div class="ad-slot">
+        <script src="https://pl28698718.effectivegatecpm.com/d8/4b/a3/d84ba3a68a654180c7b57ed054a9fc8b.js"></script>
+    </div>
+
+    <header class="text-center py-10">
+        <h1 class="teko text-6xl text-green-700 uppercase leading-none">गाँव का लोन कैलकुलेटर</h1>
+        <p class="text-slate-500 font-semibold">आसानी से अपना लोन और ब्याज कैलकुलेट करें</p>
+    </header>
+
+    <main class="max-w-xl mx-auto px-4 pb-20">
+        
+        <div class="bg-white p-6 shadow-sm input-card">
+            <h2 class="font-bold text-xl mb-6 flex items-center gap-2">
+                <span class="text-green-700">📗</span> लोन विवरण दर्ज करें
+            </h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-slate-600 mb-1">लोन राशि (₹)</label>
+                    <input type="text" id="loanAmount" placeholder="1,00,000" oninput="formatINR(this)" class="w-full p-3 border border-slate-300 rounded-lg outline-none focus:border-green-600 text-xl font-bold">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-600 mb-1">मासिक ब्याज दर (%)</label>
+                    <input type="number" id="interestRate" placeholder="2" class="w-full p-3 border border-slate-300 rounded-lg outline-none focus:border-green-600">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-600 mb-1">समय अवधि (महीनों में)</label>
+                    <input type="number" id="loanMonths" placeholder="12" class="w-full p-3 border border-slate-300 rounded-lg outline-none focus:border-green-600">
+                </div>
+                <button onclick="calculate()" class="w-full bg-green-700 text-white teko text-3xl py-3 rounded-lg hover:bg-green-800 transition-all uppercase mt-2">गणना करें</button>
+            </div>
+        </div>
+
+        <div class="ad-slot">
+            <script async="async" data-cfasync="false" src="https://pl28698729.effectivegatecpm.com/05ea3d9a4507f71f5456c5106783130f/invoke.js"></script>
+            <div id="container-05ea3d9a4507f71f5456c5106783130f"></div>
+        </div>
+
+        <div id="resultArea" class="hidden mt-8 animate-in fade-in duration-500">
+            
+            <div class="ad-slot">
+                <script>
+                  atOptions = {
+                    'key' : '32e54c69684b81a9627f345a21e97869',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://www.highperformanceformat.com/32e54c69684b81a9627f345a21e97869/invoke.js"></script>
+            </div>
+
+            <div id="captureArea" class="bg-white p-2 rounded-xl">
+                <div class="p-6 result-dashed-card shadow-sm">
+                    <h3 class="text-green-800 font-bold mb-5 flex items-center gap-2">📈 आपका लोन विवरण</h3>
+                    <div class="space-y-5">
+                        <div class="flex justify-between items-center border-b border-yellow-100 pb-2">
+                            <span class="text-slate-600 font-semibold">लोन राशि:</span>
+                            <div class="text-right">
+                                <span class="block font-bold text-green-700 text-lg" id="resPrincipal">₹ 0</span>
+                                <span class="text-xs text-slate-500" id="wordPrincipal"></span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-yellow-100 pb-2">
+                            <span class="text-slate-600 font-semibold text-orange-600">कुल ब्याज:</span>
+                            <div class="text-right">
+                                <span class="block font-bold text-orange-700 text-lg" id="resInterest">₹ 0</span>
+                                <span class="text-xs text-slate-500" id="wordInterest"></span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-slate-800 font-bold">कुल भुगतान:</span>
+                            <div class="text-right">
+                                <span class="block font-bold text-green-800 text-2xl" id="resTotal">₹ 0</span>
+                                <span class="text-sm text-green-700 font-bold" id="wordTotal"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 relative h-48 mx-auto">
+                        <canvas id="loanChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mt-8">
+                <button onclick="handleShare('download')" class="bg-[#f26522] text-white p-3 rounded-lg font-bold flex items-center justify-center gap-2">📥 डाउनलोड करें</button>
+                <button onclick="handleShare('share')" class="bg-[#25d366] text-white p-3 rounded-lg font-bold flex items-center justify-center gap-2">WhatsApp शेयर</button>
+            </div>
+        </div>
+
+        <div class="ad-slot">
+            <script src="https://pl28698732.effectivegatecpm.com/54/d8/6e/54d86e594ba67ebef11a38f195ec108d.js"></script>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-xl border border-green-100 mt-10">
+            <h4 class="text-green-800 font-bold mb-3 flex items-center gap-2"><span class="text-xl">₹</span> जानकारी</h4>
+            <ul class="text-green-700 text-sm space-y-2 list-disc ml-5">
+                <li>यह कैलकुलेटर साधारण ब्याज की गणना करता है</li>
+                <li>कुल भुगतान में मूल राशि और ब्याज दोनों शामिल हैं</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-8 text-slate-400 text-xs border-t bg-slate-50">
+        © 2026 गाँव का लोन कैलकुलेटर | सभी अधिकार सुरक्षित
+    </footer>
+
+    <script>
+        let myChart = null;
+        const hindiNumbers = ["शून्य", "एक", "दो", "तीन", "चार", "पांच", "छह", "सात", "आठ", "नौ", "दस", "ग्यारह", "बारह", "तेरह", "चौदह", "पंद्रह", "सोलह", "सत्रह", "अठारह", "उन्नीस", "बीस", "इक्कीस", "बाईस", "तेईस", "चौबीस", "पच्चीस", "छब्बीस", "सत्ताईस", "अट्ठाइस", "उनतीस", "तीस", "इकतीस", "बत्तीस", "तैंतीस", "चौंतीस", "पैंतीस", "छत्तीस", "सैंतीस", "अड़तीस", "उनतालीस", "चालीस", "इकतालीस", "बयालीस", "तैंतालीस", "चवालीस", "पैंतालीस", "छियालीस", "सैंतालीस", "अड़तालीस", "उनचास", "पचास", "इक्यावन", "बावन", "तिरपन", "चौवन", "पचपन", "छप्पन", "सत्तावन", "अट्ठावन", "उनसठ", "साठ", "इकसठ", "बासठ", "तिरसठ", "चौंसठ", "पैंसठ", "छियासठ", "सरसठ", "अड़सठ", "उनहत्तर", "सत्तर", "इकहत्तर", "बहत्तर", "तिहत्तर", "चौहत्तर", "पचहत्तर", "छिहत्तर", "सतहत्तर", "अठहत्तर", "उनासी", "अस्सी", "इक्यासी", "बयासी", "तिरासी", "चौरासी", "पचासी", "छियासी", "सत्तासी", "अठासी", "नवासी", "नब्बे", "इक्यानबे", "बानबे", "तिरानबे", "चौरानबे", "पचानबे", "छियानबे", "सत्तानबे", "अट्ठानबे", "निन्यानबे", "सौ"];
+
+        function formatINR(input) {
+            let value = input.value.replace(/,/g, '');
+            if (!isNaN(value) && value !== "") input.value = Number(value).toLocaleString('en-IN');
+        }
+
+        function getHindiWords(n) {
+            if (n === 0) return "शून्य";
+            let s = "";
+            if (n >= 100000) { s += (hindiNumbers[Math.floor(n/100000)]) + " लाख "; n %= 100000; }
+            if (n >= 1000) { s += (hindiNumbers[Math.floor(n/1000)]) + " हजार "; n %= 1000; }
+            if (n >= 100) { s += (hindiNumbers[Math.floor(n/100)]) + " सौ "; n %= 100; }
+            if (n > 0) s += (hindiNumbers[Math.round(n)]);
+            return s.trim() + " रुपये";
+        }
+
+        function calculate() {
+            const p = parseFloat(document.getElementById('loanAmount').value.replace(/,/g, ''));
+            const r = parseFloat(document.getElementById('interestRate').value);
+            const t = parseFloat(document.getElementById('loanMonths').value);
+            if (isNaN(p) || isNaN(r) || isNaN(t)) return alert("कृपया जानकारी सही भरें");
+
+            const ti = (p * r * t) / 100;
+            const tp = p + ti;
+
+            document.getElementById('resPrincipal').innerText = "₹ " + p.toLocaleString('en-IN');
+            document.getElementById('wordPrincipal').innerText = "(" + getHindiWords(p) + ")";
+            document.getElementById('resInterest').innerText = "₹ " + ti.toLocaleString('en-IN');
+            document.getElementById('wordInterest').innerText = "(" + getHindiWords(Math.round(ti)) + ")";
+            document.getElementById('resTotal').innerText = "₹ " + tp.toLocaleString('en-IN');
+            document.getElementById('wordTotal').innerText = "(" + getHindiWords(Math.round(tp)) + ")";
+
+            document.getElementById('resultArea').classList.remove('hidden');
+            updateChart(p, ti);
+        }
+
+        function updateChart(p, i) {
+            const ctx = document.getElementById('loanChart').getContext('2d');
+            if (myChart) myChart.destroy();
+            myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['मूल राशि', 'कुल ब्याज'],
+                    datasets: [{ data: [p, i], backgroundColor: ['#15803d', '#ea580c'], borderWidth: 4, borderColor: '#fffdf5' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+
+        async function handleShare(type) {
+            const area = document.getElementById('captureArea');
+            const canvas = await html2canvas(area, { scale: 2, backgroundColor: "#ffffff" });
+            const dataUrl = canvas.toDataURL("image/png");
+
+            if (type === 'download') {
+                const link = document.createElement('a');
+                link.download = 'loan_hisab.png';
+                link.href = dataUrl;
+                link.click();
+            } else {
+                const blob = await (await fetch(dataUrl)).blob();
+                const file = new File([blob], 'loan_hisab.png', { type: 'image/png' });
+
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                    navigator.share({
+                        files: [file],
+                        title: 'लोन का हिसाब',
+                        text: 'यहाँ देखें मेरा लोन हिसाब:'
+                    }).catch(() => {});
+                } else {
+                    alert("डायरेक्ट शेयर संभव नहीं है। फोटो डाउनलोड करके WhatsApp पर भेजें।");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
+  
